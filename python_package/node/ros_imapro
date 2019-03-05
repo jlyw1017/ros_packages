@@ -1,0 +1,8 @@
+#! /usr/bin/env python
+
+import python_imapro_package.imapro
+
+
+if __name__ == '__main__':
+    print('run ')
+    python_imapro_package.imapro.imagetovedio()
