@@ -8,19 +8,19 @@ In ROS we also use Distutils to create a package(It is ok if you are not familie
 
 Example for the package:   
 1.create package.  
-  mkdir src
-  under src
-  catkin_create_pkg python_package std_msgs rospy roscpp  sensor_msgs cv_bridge message_filters  
+  mkdir src  
+  under src  
+  catkin_create_pkg python_package std_msgs rospy roscpp  sensor_msgs cv_bridge message_filters      
 2.Uncomment the following lines in the cmakelist under package root.  
-  catkin_python_setup
+  catkin_python_setup  
   this makes camke execute setup.py, and different from run it directly,but install everything in catkin_ws
   for more ditals see
   http://docs.ros.org/api/catkin/html/user_guide/setup_dot_py.html  
 3.Uncomment the following lines in the cmakelist under package root.   
- install(PROGRAMS  
-   scripts/my_python_script  
-   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}  
- )  
+ install(PROGRAMS    
+   scripts/my_python_script    
+   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}    
+ )    
  to install the executables 
  for details see:
   http://docs.ros.org/melodic/api/catkin/html/howto/format2/installing_python.html  
