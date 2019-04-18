@@ -85,17 +85,22 @@ import python_imapro_package.imapro
 if __name__ == '__main__':  
     python_imapro_package.imapro.imagetovedio()  
 
-mkdir catkin_ws
-cd catkin_ws
-mkdir src 
-cd src
-catkin_create_pkg cpp_package std_msgs rospy roscpp sensor_msgs cv_bridge message_filters
+# ros_package_cpp
+第一步创建包
+mkdir catkin_ws  
+cd catkin_ws  
+mkdir src   
+cd src  
+catkin_create_pkg cpp_package std_msgs rospy roscpp sensor_msgs cv_bridge message_filters  
 
+第二步修改cmakelist
+# An example for cmakelist
+ros的cmakelist和普通的区别不大，这里再简单说明下
 cmake_minimum_required(VERSION 2.8.3) 
 
 project(nodename) 
 
-// 找到需要的依赖
+1. 找到需要的依赖
 find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   message_filters
@@ -108,10 +113,10 @@ find_package(catkin REQUIRED COMPONENTS
 )
 find_package(OpenCV REQUIRED)     //opencv必须单独写 
 
-## System dependencies are found with CMake's conventions
+2. System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED COMPONENTS system)  //boost 必须单独写
 
-// 产生这个包的信息，使得其他包和后面的函数能用这个包的信息
+3. 产生这个包的信息，使得其他包和后面的函数能用这个包的信息
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES cpp_package
@@ -119,34 +124,34 @@ catkin_package(
   DEPENDS system_lib
 )
 
-// 告诉编译器我的include位置，放你的.hpp文件
-// 同时include的时候，不用给出相对路径位置了，会直接搜索include文件夹
-// Specify additional locations of header files
-// Your package locations should be listed before other locations
+4 告诉编译器我的include位置，放你的.hpp文件
+ 同时include的时候，不用给出相对路径位置了，会直接搜索include文件夹
+ Specify additional locations of header files
+ Your package locations should be listed before other locations
 include_directories(
  include
   ${catkin_INCLUDE_DIRS} ${OpenCV_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS} 
 )
 
-// 声明引用的其他cpp，一般是hpp中函数的实现
-// Declare a C++ library
+5 声明引用的其他cpp，一般是hpp中函数的实现
+ Declare a C++ library
  add_library(${PROJECT_NAME}
    src/${PROJECT_NAME}/cpp_functions.cpp
  )
 
-// 声明其他依赖
-// Add cmake target dependencies of the executable
-// same as for the library above
+6 声明其他依赖
+ Add cmake target dependencies of the executable
+ same as for the library above
 add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-// 把上面的lib链接到execu
-// Specify libraries to link a library or executable target against
+7 把上面的lib链接到execu
+ Specify libraries to link a library or executable target against
  target_link_libraries(${PROJECT_NAME}_node
    ${catkin_LIBRARIES}
  )
 
 
-// 举例
+举例
 add_executable(foo src/foo.cpp)
 add_library(moo src/moo.cpp)
 target_link_libraries(foo moo)  -- This links foo against libmoo.so
