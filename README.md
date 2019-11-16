@@ -1,4 +1,4 @@
-# ros_packages
+# ros_packages Ros python包新手教程，中文见后
 It is a tutorial for build ros packages.
 
 # ros_python_template
